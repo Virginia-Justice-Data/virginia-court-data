@@ -1,0 +1,82 @@
+file,column,type,description
+court_records,fips,VARCHAR,Court FIPS code (circuit and district courts share the locality code)
+court_records,CaseNumber,VARCHAR,Court case number (CR = circuit; GC/GT = district criminal/traffic)
+court_records,FiledDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Commencedby,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Locality,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Name,VARCHAR,Defendant name as filed
+court_records,Status,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,DefenseAttorney,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Address,VARCHAR,"City, state and ZIP as published by the courts"
+court_records,AKA,VARCHAR,Alias recorded by the court
+court_records,AKA2,VARCHAR,Second alias
+court_records,Gender,VARCHAR,As recorded by the court
+court_records,Race,VARCHAR,As recorded by the court (not used anywhere on the site)
+court_records,DOB,VARCHAR,"Birth month and day as published by the courts; the year is a placeholder, not the real birth year"
+court_records,Charge,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,CodeSection,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,CaseType,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Class,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,OffenseDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,ArrestDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Complainant,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,AmendedCharge,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,AmendedCodeSection,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,AmendedCaseType,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,FinalDisposition,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,DispositionDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,JailPenitentiary,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,ConcurrentConsecutive,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,LifeDeath,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,SentenceTime,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,SentenceSuspendedTime,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,ProbationType,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,ProbationTime,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,ProbationStarts,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,OperatorLicenseSuspensionTime,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,RestrictionEffectiveDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,RestrictionEndDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,OperatorLicenseRestrictionCodes,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,DrivingRestrictions,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Fine,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Costs,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,FineCostsDue,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,FineCostsPaid,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,FineCostsPaidDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,VASAP,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,FineCostsPastDue,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,CourtDMVSurrender,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,DriverImprovementClinic,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,RestitutionPaid,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,RestitutionAmount,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,Military,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,TrafficFatality,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,AppealedDate,VARCHAR,"Original court field, as published in the statewide bulk data"
+court_records,court_person_id,VARCHAR,The court system's own person id
+court_records,split_person_id,VARCHAR,"Court person id after we split ids that mixed different first names (same as the court id unless split; split ids end in _2, _3 ...)"
+court_records,person_key,VARCHAR,Our person id after merging records of the same person filed under different court ids (the defendant on the site)
+court_records,incident_id,BIGINT,Arrest/incident this record belongs to on the site (join to charged_offenses)
+charged_offenses,incident_id,BIGINT,Arrest/incident id (all charges from one arrest in one county share it)
+charged_offenses,person_key,VARCHAR,Defendant id (join to court_records.person_key)
+charged_offenses,name,VARCHAR,Defendant name
+charged_offenses,offense_date,DATE,Offense date
+charged_offenses,disposition_date,DATE,Final disposition date
+charged_offenses,offense_year,BIGINT,Offense year
+charged_offenses,disposition_year,BIGINT,Disposition year (the site's default year axis)
+charged_offenses,court,VARCHAR,Court (locality)
+charged_offenses,offense,VARCHAR,Offense category
+charged_offenses,level,VARCHAR,Felony or misdemeanor
+charged_offenses,charged_level,VARCHAR,"Level charged for ranked offenses (DUI, sex, weapons, murder)"
+charged_offenses,charge_as_filed,VARCHAR,The offense as charged
+charged_offenses,code_section,VARCHAR,Virginia Code section charged
+charged_offenses,counts,BIGINT,Stacked counts of this offense in the arrest (counted once on the site)
+charged_offenses,result,VARCHAR,How the charge ended (meta.res)
+charged_offenses,conviction_type,VARCHAR,"Convicted as charged, fewer counts, reduced level, lesser offense, dropped with/without another conviction, reduced to traffic infraction"
+charged_offenses,convicted_as,VARCHAR,"For a reduced level, lesser offense or traffic infraction: what the conviction was for"
+charged_offenses,convicted_of_category,VARCHAR,Offense category of that conviction
+charged_offenses,active_days,INTEGER,"Active (unsuspended) incarceration, days; empty = sentence unknown"
+charged_offenses,defendant_record,VARCHAR,Defendant record at the offense date
+charged_offenses,prior_arrest_events,HUGEINT,"Prior arrest events (any prior charge, even if dropped)"
+charged_offenses,prior_conv_events,HUGEINT,Prior conviction events
+charged_offenses,pending_case_at_offense,BOOLEAN,Had a pending case at the offense date
+charged_offenses,case_numbers,VARCHAR,Court case numbers making up this charged offense
